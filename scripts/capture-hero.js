@@ -21,7 +21,8 @@ const path = require('path');
 const os = require('os');
 
 const URL = 'https://cynthiongame.com/';
-const OUTPUT = path.join(os.homedir(), 'Desktop', 'cynthion-hero.png');
+const OUTPUT_PNG = path.join(os.homedir(), 'Desktop', 'cynthion-hero.png');
+const OUTPUT_PDF = path.join(os.homedir(), 'Desktop', 'cynthion-hero.pdf');
 const DPR = 3;
 
 (async () => {
@@ -62,19 +63,35 @@ const DPR = 3;
 
   const PAD_X = 48;
   const PAD_Y = 32;
-  await page.screenshot({
-    path: OUTPUT,
-    clip: {
-      x: Math.max(0, mainRect.left - PAD_X),
-      y: 0,
-      width: Math.min(1400, mainRect.width + PAD_X * 2),
-      height: cropBottom + PAD_Y,
-    },
-  });
+  const clipWidth = Math.min(1400, mainRect.width + PAD_X * 2);
+  const clipHeight = cropBottom + PAD_Y;
+  const clipX = Math.max(0, mainRect.left - PAD_X);
 
-  console.log(`Wrote ${OUTPUT}`);
-  console.log(`(content: ${Math.round(mainRect.width + PAD_X * 2)}×${Math.round(cropBottom + PAD_Y)} CSS px, ` +
-              `output: ${Math.round((mainRect.width + PAD_X * 2) * DPR)}×${Math.round((cropBottom + PAD_Y) * DPR)} actual px @ ${DPR}x)`);
+  // PNG (raster, 3x for retina-sharp screenshots)
+  await page.screenshot({
+    path: OUTPUT_PNG,
+    clip: { x: clipX, y: 0, width: clipWidth, height: clipHeight },
+  });
+  console.log(`Wrote ${OUTPUT_PNG}`);
+  console.log(`  ${Math.round(clipWidth * DPR)}×${Math.round(clipHeight * DPR)} px @ ${DPR}x`);
+
+  // PDF (vector text, infinite zoom — flyer / one-pager / press use)
+  // Shift content left by clipX so it starts at the page's left edge, and crop
+  // the page to exactly the clip dimensions. Body padding-top stays so the
+  // wordmark has breathing room.
+  await page.addStyleTag({ content: `
+    main { margin-left: -${clipX}px !important; }
+  ` });
+  await page.pdf({
+    path: OUTPUT_PDF,
+    width: `${clipWidth}px`,
+    height: `${clipHeight}px`,
+    printBackground: true,
+    margin: { top: 0, right: 0, bottom: 0, left: 0 },
+    pageRanges: '1',
+  });
+  console.log(`Wrote ${OUTPUT_PDF}`);
+  console.log(`  ${Math.round(clipWidth)}×${Math.round(clipHeight)} CSS px (vector — text stays sharp at any zoom)`);
 
   await browser.close();
 })();
