@@ -53,6 +53,15 @@ main {
   color: var(--cloud);
 }
 
+.wordmark .omega {
+  /* Omega often renders slightly smaller than surrounding capitals in display
+     faces; nudge it up and tighten kerning so it reads as the O it stands in for. */
+  display: inline-block;
+  font-size: 0.92em;
+  vertical-align: 0.02em;
+  margin: 0 -0.02em;
+}
+
 .wordmark hr {
   border: 0;
   border-top: 1px solid var(--copper);
