@@ -48,22 +48,23 @@
       <p class="cta-line">Join the mailing list for updates.</p>
       <form
         id="signup-form"
-        action="https://assets.mailerlite.com/jsonp/2360035/forms/187859158354102019/subscribe"
+        action="https://formsubmit.co/info@cynthiongame.com"
         method="post"
         target="_blank"
         novalidate
       >
-        <label for="ml-email" class="visually-hidden">Email address</label>
+        <label for="email" class="visually-hidden">Email address</label>
         <input
           type="email"
-          name="fields[email]"
-          id="ml-email"
+          name="email"
+          id="email"
           placeholder="your@address"
           autocomplete="email"
           required
         >
-        <input type="hidden" name="ml-submit" value="1">
-        <input type="hidden" name="anticsrf" value="true">
+        <input type="hidden" name="_subject" value="New Cynthion signup">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_captcha" value="false">
         <button type="submit">Subscribe</button>
       </form>
       <p class="signup-success" id="signup-success" hidden>Thanks for your interest.</p>

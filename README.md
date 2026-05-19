@@ -12,17 +12,15 @@ Lives at: `https://speeko.github.io/cynthion-site/` (or custom domain once confi
 
 Two things need to happen before this page actually collects emails.
 
-### 1. MailerLite (wired up)
+### 1. Form-to-email (Formsubmit)
 
-The form posts to MailerLite — account `2360035`, form `187859158354102019` (the "Cynthion Landing Page" embedded form). Subscribers are added to the **Cynthion Subscribers** group.
+The signup form posts to `https://formsubmit.co/info@cynthiongame.com`. Formsubmit receives the POST and emails the submission to that address, which Porkbun's free forwarding then relays to `bdarling87@gmail.com`.
 
-To manage the list, send broadcasts, or change the form name:
-- Log in at https://dashboard.mailerlite.com
-- Forms → Embedded forms → Cynthion Landing Page
+No account at Formsubmit required. **First-time activation:** the very first submission triggers a verification email from Formsubmit asking to confirm `info@cynthiongame.com` is yours. Click the link in that email once, and from then on real signups land in your Gmail.
 
-**Trial vs free tier:** the account was auto-enrolled in a 14-day trial (advanced features unlocked). When the trial expires it reverts to MailerLite's forever-free plan (1,000 subscribers + 12,000 emails/month). The embed form keeps working through the transition — only the dashboard features change.
+Email subject is `New Cynthion signup`. CAPTCHA disabled by default. If spam becomes a problem, set `_captcha` to `true` in the hidden input (in `index.html`).
 
-**Double opt-in is on by default.** New subscribers get a confirmation email; they're not added to the group until they click confirm. Toggle off in the form's overview page if you want single opt-in.
+**Migrating off:** if you outgrow form-to-email (you want broadcasts, segmentation, double opt-in, etc.), swap the form action back to a list service (Mailchimp / MailerLite / Buttondown). The rest of the page is independent.
 
 ### 2. (Optional) Custom domain
 
