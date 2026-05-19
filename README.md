@@ -12,17 +12,22 @@ Lives at: `https://speeko.github.io/cynthion-site/` (or custom domain once confi
 
 Two things need to happen before this page actually collects emails.
 
-### 1. Kit (ConvertKit) signup
+### 1. MailerLite signup
 
-The form posts to `https://app.kit.com/forms/{{KIT_FORM_ID}}/subscriptions` — that placeholder needs to be replaced with a real Kit form ID.
+The form posts to `{{MAILERLITE_FORM_ACTION}}` — that placeholder needs to be replaced with a real MailerLite form action URL.
 
-1. Go to https://kit.com and sign up. Free tier covers up to 10,000 subscribers.
-2. Create a new form — pick the **"Naked"** style (no Kit styling, just an HTML form).
-3. After creating the form, look at the embed/share view. The form ID is the numeric portion of the embed URL, e.g. `https://app.kit.com/forms/1234567/subscriptions` → form ID is `1234567`.
-4. In `index.html`, search for `{{KIT_FORM_ID}}` and replace with that number.
+1. Go to https://mailerlite.com and sign up. Free tier covers 1,000 subscribers + 12,000 emails/month.
+2. Create a new **Embedded form**. Pick any style — we don't use their CSS, only the action URL.
+3. After creating the form, click "Embed". MailerLite gives you HTML — find the `<form action="...">` URL inside it. It will look like one of:
+   - `https://app.mailerlite.com/webforms/submit/abcd1234`
+   - `https://assets.mailerlite.com/jsonp/{ACCOUNT_ID}/forms/{FORM_ID}/subscribe`
+   - Or similar
+4. In `index.html`, search for `{{MAILERLITE_FORM_ACTION}}` and replace with that URL (the value of `action="..."`).
 5. Commit + push.
 
-**Note:** Buttondown was the original plan but they rejected the account during manual review (no public presence at the time of review). Kit is the indie-creator replacement — same one-form-POST pattern, no JS required.
+**Field names already match MailerLite's expectations** (`fields[email]` + `ml-submit=1`), so the form will POST correctly as soon as the action URL is filled in.
+
+**Note:** Buttondown was the original plan but they rejected the account during manual review. Kit was considered next, but their free tier is buried behind a 14-day trial flow. MailerLite has the most generous indie-friendly free tier (1k subs vs Mailchimp's 500) and the same one-form-POST pattern, no JS required.
 
 ### 2. (Optional) Custom domain
 

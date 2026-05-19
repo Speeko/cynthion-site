@@ -47,21 +47,21 @@
     <section class="signup">
       <p class="cta-line">Join the mailing list for updates.</p>
       <form
-        action="https://app.kit.com/forms/{{KIT_FORM_ID}}/subscriptions"
+        action="{{MAILERLITE_FORM_ACTION}}"
         method="post"
-        data-format="inline"
         target="_blank"
         novalidate
       >
-        <label for="kit-email" class="visually-hidden">Email address</label>
+        <label for="ml-email" class="visually-hidden">Email address</label>
         <input
           type="email"
-          name="email_address"
-          id="kit-email"
+          name="fields[email]"
+          id="ml-email"
           placeholder="your@address"
           autocomplete="email"
           required
         >
+        <input type="hidden" name="ml-submit" value="1">
         <button type="submit">Subscribe</button>
       </form>
     </section>
