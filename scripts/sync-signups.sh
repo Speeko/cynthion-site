@@ -27,7 +27,10 @@ log() { printf '[%s] %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"; }
 gog gmail labels create "$SYNCED_LABEL" --account "$ACCOUNT" --no-input 2>/dev/null || true
 
 # Find threads that have the source label but NOT the synced label.
-QUERY="label:\"$SOURCE_LABEL\" -label:\"${SYNCED_LABEL//\//-}\""
+# Gmail's search syntax uses "label:foo-bar" with hyphens for slashes in label names,
+# but the actual label name keeps the slash. Both syntaxes work; using the slashed form
+# inside quotes is the reliable one.
+QUERY="label:\"$SOURCE_LABEL\" -label:\"$SYNCED_LABEL\""
 
 THREAD_IDS=$(gog gmail search "$QUERY" --account "$ACCOUNT" -p 2>/dev/null | awk 'NR>1 {print $1}')
 
@@ -43,12 +46,13 @@ while IFS= read -r THREAD_ID; do
   # Get the message body (gog returns the full thread; we look at the first/only message)
   BODY=$(gog gmail get "$THREAD_ID" --account "$ACCOUNT" 2>/dev/null)
 
-  # Extract the subscriber's email. Web3Forms emails contain a field labelled
-  # "Subscriber Email" once we renamed the form input. Fall back to first
-  # plausible email address in the body that isn't an infrastructure one.
+  # Extract the subscriber's email. The form's JS injects "Subscriber: <email>"
+  # into the message field, which Web3Forms renders in the body. We grep for
+  # that exact pattern, which avoids picking up emails from the From / To
+  # headers or the web3forms.com footer.
   EMAIL=$(printf '%s' "$BODY" \
-    | grep -oE '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}' \
-    | grep -viE 'web3forms\.com|cynthiongame\.com|@google\.com|bdarling87@' \
+    | { grep -oE 'Subscriber:[[:space:]]+[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}' || true; } \
+    | { grep -oE '[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}' || true; } \
     | head -1)
 
   if [[ -z "$EMAIL" ]]; then
