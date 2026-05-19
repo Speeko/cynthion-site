@@ -51,32 +51,6 @@ main {
   letter-spacing: 0.18em;
   margin: 0;
   color: var(--cloud);
-  display: flex;
-  align-items: center;
-  gap: 0.05em;
-  line-height: 1;
-}
-
-.wordmark .moon-c {
-  /* Crescent moon glyph standing in for the C. Sized to match cap-height of
-     the surrounding letters. currentColor inherits the wordmark color. */
-  width: 1em;
-  height: 1em;
-  flex: 0 0 auto;
-  color: var(--cloud);
-}
-
-.wordmark .rest {
-  display: inline-block;
-}
-
-.wordmark .omega {
-  /* Omega often renders slightly smaller than surrounding capitals in display
-     faces; nudge it up and tighten kerning so it reads as the O it stands in for. */
-  display: inline-block;
-  font-size: 0.92em;
-  vertical-align: 0.02em;
-  margin: 0 -0.02em;
 }
 
 .wordmark hr {
