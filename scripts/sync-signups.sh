@@ -16,6 +16,11 @@
 
 set -euo pipefail
 
+# Cron's PATH doesn't include user-local bins by default. gog lives in
+# ~/.local/bin so we prepend it (and a couple common locations) explicitly
+# so this script behaves identically whether invoked from cron or a shell.
+export PATH="$HOME/.local/bin:/usr/local/bin:/usr/bin:/bin:$PATH"
+
 ACCOUNT="bdarling87@gmail.com"
 SHEET_ID="13DVCThkLC1rrPW2K0Z3-uvzPZhQ0PUdiwipsigDHGaI"
 SOURCE_LABEL="Cynthion Subscribers"
@@ -23,8 +28,15 @@ SYNCED_LABEL="Cynthion Subscribers/Synced"
 
 log() { printf '[%s] %s\n' "$(date '+%Y-%m-%d %H:%M:%S')" "$*"; }
 
+# Sanity check: is gog actually on PATH? If not, fail loudly so the cron log
+# captures the real error instead of silently swallowing it.
+if ! command -v gog >/dev/null 2>&1; then
+  log "ERROR: 'gog' CLI not found on PATH. PATH=$PATH"
+  exit 1
+fi
+
 # Ensure "Synced" sub-label exists (gog will error harmlessly if it already does)
-gog gmail labels create "$SYNCED_LABEL" --account "$ACCOUNT" --no-input 2>/dev/null || true
+gog gmail labels create "$SYNCED_LABEL" --account "$ACCOUNT" --no-input >/dev/null 2>&1 || true
 
 # Find threads that have the source label but NOT the synced label.
 # Gmail's search syntax uses "label:foo-bar" with hyphens for slashes in label names,
@@ -32,7 +44,7 @@ gog gmail labels create "$SYNCED_LABEL" --account "$ACCOUNT" --no-input 2>/dev/n
 # inside quotes is the reliable one.
 QUERY="label:\"$SOURCE_LABEL\" -label:\"$SYNCED_LABEL\""
 
-THREAD_IDS=$(gog gmail search "$QUERY" --account "$ACCOUNT" -p 2>/dev/null | awk 'NR>1 {print $1}')
+THREAD_IDS=$(gog gmail search "$QUERY" --account "$ACCOUNT" -p 2>&1 | awk 'NR>1 {print $1}')
 
 if [[ -z "$THREAD_IDS" ]]; then
   log "No unsynced signups."

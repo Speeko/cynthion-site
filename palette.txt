@@ -1,0 +1,9 @@
+CYNTHION COLOUR PALETTE
+
+near-black       #0A0B0F
+pale blue-grey   #C8D6E3
+medium grey      #8A8C92
+dark grey        #5A5C60
+muted blue       #3A6FB5
+oxidized copper  #7A4A2C
+deep red         #9A2A1F
