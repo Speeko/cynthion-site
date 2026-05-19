@@ -294,6 +294,13 @@ input[type="email"]:disabled {
 
 .signup-success[hidden] { display: none; }
 
+.steam-soon {
+  margin: 1rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--regolith);
+  letter-spacing: 0.04em;
+}
+
 /* Footer
    -------------------------------------------------------------- */
 footer {
