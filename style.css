@@ -30,7 +30,8 @@
 
 :root {
   --vacuum:      #0A0B0F;
-  --regolith:    #5A5C60;
+  --regolith:    #8A8C92; /* WCAG AA contrast vs vacuum (5.4:1). Brighter than the brand prototype's #5A5C60 to clear 4.5:1 against the dark bg. */
+  --regolith-deep: #5A5C60; /* Original brand value, kept for decorative non-text use (borders, hairlines). */
   --cloud:       #C8D6E3;
   --earth-blue:  #3A6FB5;
   --copper:      #7A4A2C;
