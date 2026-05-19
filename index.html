@@ -47,6 +47,7 @@
     <section class="signup">
       <p class="cta-line">Join the mailing list for updates.</p>
       <form
+        id="signup-form"
         action="https://assets.mailerlite.com/jsonp/2360035/forms/187859158354102019/subscribe"
         method="post"
         target="_blank"
@@ -65,6 +66,7 @@
         <input type="hidden" name="anticsrf" value="true">
         <button type="submit">Subscribe</button>
       </form>
+      <p class="signup-success" id="signup-success" hidden>Received. Check your inbox to confirm.</p>
     </section>
 
     <footer>
@@ -74,5 +76,21 @@
       -->
     </footer>
   </main>
+
+  <script>
+    (function () {
+      var form = document.getElementById('signup-form');
+      var success = document.getElementById('signup-success');
+      if (!form || !success) return;
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var fd = new FormData(form);
+        fetch(form.action, { method: 'POST', body: fd, mode: 'no-cors' })
+          .catch(function () { /* fire-and-forget */ });
+        form.hidden = true;
+        success.hidden = false;
+      });
+    })();
+  </script>
 </body>
 </html>
