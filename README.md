@@ -12,14 +12,17 @@ Lives at: `https://speeko.github.io/cynthion-site/` (or custom domain once confi
 
 Two things need to happen before this page actually collects emails.
 
-### 1. Buttondown signup
+### 1. Kit (ConvertKit) signup
 
-The form posts to `https://buttondown.com/api/emails/embed-subscribe/{{BUTTONDOWN_USERNAME}}` — that placeholder needs to be replaced with a real Buttondown username.
+The form posts to `https://app.kit.com/forms/{{KIT_FORM_ID}}/subscriptions` — that placeholder needs to be replaced with a real Kit form ID.
 
-1. Go to https://buttondown.com and sign up. Free tier covers 100 subs.
-2. Claim the username `cynthion` (or whatever's available).
-3. In `index.html`, search for `{{BUTTONDOWN_USERNAME}}` and replace with the chosen username.
-4. Commit + push.
+1. Go to https://kit.com and sign up. Free tier covers up to 10,000 subscribers.
+2. Create a new form — pick the **"Naked"** style (no Kit styling, just an HTML form).
+3. After creating the form, look at the embed/share view. The form ID is the numeric portion of the embed URL, e.g. `https://app.kit.com/forms/1234567/subscriptions` → form ID is `1234567`.
+4. In `index.html`, search for `{{KIT_FORM_ID}}` and replace with that number.
+5. Commit + push.
+
+**Note:** Buttondown was the original plan but they rejected the account during manual review (no public presence at the time of review). Kit is the indie-creator replacement — same one-form-POST pattern, no JS required.
 
 ### 2. (Optional) Custom domain
 

@@ -34,7 +34,7 @@
 
     <section class="timeline" aria-label="Timeline">
       <dl>
-        <dt>~1969</dt>  <dd>Earth's powers unite behind a lunar program.</dd>
+        <dt>~1990s</dt> <dd>Earth's powers unite behind a lunar program.</dd>
         <dt>~2000</dt>  <dd>ILSA. Humanity's first permanent off-world settlement.</dd>
         <dt>~2030s</dt> <dd>The Naming. ILSA becomes Cynthion.</dd>
         <dt>~2080s</dt> <dd>The First Breath. Terraforming proven on the Moon.</dd>
@@ -47,22 +47,21 @@
     <section class="signup">
       <p class="cta-line">Join the mailing list for updates.</p>
       <form
-        action="https://buttondown.com/api/emails/embed-subscribe/cynthiongame"
+        action="https://app.kit.com/forms/{{KIT_FORM_ID}}/subscriptions"
         method="post"
+        data-format="inline"
         target="_blank"
         novalidate
       >
-        <label for="bd-email" class="visually-hidden">Email address</label>
+        <label for="kit-email" class="visually-hidden">Email address</label>
         <input
           type="email"
-          name="email"
-          id="bd-email"
+          name="email_address"
+          id="kit-email"
           placeholder="your@address"
           autocomplete="email"
           required
         >
-        <!-- Honeypot — bots fill this, humans don't see it. -->
-        <input type="text" name="website" tabindex="-1" autocomplete="off" class="visually-hidden" aria-hidden="true">
         <button type="submit">Subscribe</button>
       </form>
     </section>
