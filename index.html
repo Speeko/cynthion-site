@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cynthion</title>
+  <meta name="description" content="A party-based sci-fi CRPG in the tradition of Pillars of Eternity and Tyranny. Three centuries old, and quietly running out of air.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <header class="wordmark">
+      <h1>CYNTHION</h1>
+      <hr aria-hidden="true">
+    </header>
+
+    <section class="copy">
+      <p>A party-based sci-fi CRPG in the tradition of <em>Pillars of Eternity</em> and <em>Tyranny</em>. Recruit a crew of survivors. Walk the cracked domes of humanity's first lunar colony. Three centuries old, and quietly running out of air. Real-time-with-pause combat. Four factions. Four answers.</p>
+    </section>
+
+    <section class="signup">
+      <p class="cta-line">Updates when there's something worth saying.</p>
+      <form
+        action="https://buttondown.com/api/emails/embed-subscribe/{{BUTTONDOWN_USERNAME}}"
+        method="post"
+        target="_blank"
+        novalidate
+      >
+        <label for="bd-email" class="visually-hidden">Email address</label>
+        <input
+          type="email"
+          name="email"
+          id="bd-email"
+          placeholder="your@address"
+          autocomplete="email"
+          required
+        >
+        <!-- Honeypot — bots fill this, humans don't see it. -->
+        <input type="text" name="website" tabindex="-1" autocomplete="off" class="visually-hidden" aria-hidden="true">
+        <button type="submit">Subscribe</button>
+      </form>
+    </section>
+
+    <footer>
+      <p>&copy; 2026 &middot; <span class="muted">a colony that keeps a list</span></p>
+      <!-- Steam link reserved for v1 once store page is public:
+      <p><a href="https://store.steampowered.com/app/4604130/">Wishlist on Steam</a></p>
+      -->
+    </footer>
+  </main>
+</body>
+</html>
