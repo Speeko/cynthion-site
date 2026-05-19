@@ -71,7 +71,7 @@
         <input type="hidden" name="_captcha" value="false">
         <button type="submit">Subscribe</button>
       </form>
-      <p class="signup-success" id="signup-success" hidden>Thanks for your interest.</p>
+      <p class="signup-success" id="signup-success" hidden>Thank you for your interest.</p>
     </section>
 
     <footer>
@@ -91,7 +91,7 @@
           e.preventDefault();
           var btn = form.querySelector('button[type="submit"]');
           var input = form.querySelector('input[type="email"]');
-          if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+          if (btn) { btn.disabled = true; btn.textContent = 'Confirmed'; }
           if (input) input.disabled = true;
           var fd = new FormData(form);
           fetch(form.action, { method: 'POST', body: fd, mode: 'no-cors' })

@@ -112,16 +112,24 @@ main {
 /* Lightbox
    -------------------------------------------------------------- */
 .lightbox {
-  padding: 0;
-  border: none;
-  background: transparent;
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
   max-width: 100vw;
   max-height: 100vh;
-  width: auto;
-  height: auto;
-  margin: auto;
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
   overflow: visible;
   cursor: zoom-out;
+}
+
+.lightbox[open] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .lightbox::backdrop {
