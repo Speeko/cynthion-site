@@ -51,6 +51,23 @@ main {
   letter-spacing: 0.18em;
   margin: 0;
   color: var(--cloud);
+  display: flex;
+  align-items: center;
+  gap: 0.05em;
+  line-height: 1;
+}
+
+.wordmark .moon-c {
+  /* Crescent moon glyph standing in for the C. Sized to match cap-height of
+     the surrounding letters. currentColor inherits the wordmark color. */
+  width: 1em;
+  height: 1em;
+  flex: 0 0 auto;
+  color: var(--cloud);
+}
+
+.wordmark .rest {
+  display: inline-block;
 }
 
 .wordmark .omega {
