@@ -95,12 +95,13 @@
         <label for="email" class="visually-hidden">Email address</label>
         <input
           type="email"
-          name="Subscriber Email"
+          name="email"
           id="email"
           placeholder="your@address"
           autocomplete="email"
           required
         >
+        <input type="hidden" name="message" id="signup-message" value="">
         <input type="hidden" name="access_key" value="af2de5d3-d150-4aa0-939c-8a7949555667">
         <input type="hidden" name="subject" value="New Cynthion signup">
         <input type="hidden" name="from_name" value="Cynthion landing page">
@@ -127,6 +128,11 @@
           e.preventDefault();
           var btn = form.querySelector('button[type="submit"]');
           var input = form.querySelector('input[type="email"]');
+          var msg = document.getElementById('signup-message');
+          // Mirror the email into the 'message' field so Web3Forms displays
+          // it in the notification body (their template consumes 'email' for
+          // reply-to and shows 'message' as visible content).
+          if (msg && input) msg.value = 'Subscriber: ' + input.value;
           if (btn) { btn.disabled = true; btn.textContent = 'Confirmed'; }
           if (input) input.disabled = true;
           var fd = new FormData(form);
