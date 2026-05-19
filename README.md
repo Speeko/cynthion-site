@@ -12,15 +12,15 @@ Lives at: `https://speeko.github.io/cynthion-site/` (or custom domain once confi
 
 Two things need to happen before this page actually collects emails.
 
-### 1. Form-to-email (Formsubmit)
+### 1. Form-to-email (Web3Forms)
 
-The signup form posts to `https://formsubmit.co/info@cynthiongame.com`. Formsubmit receives the POST and emails the submission to that address, which Porkbun's free forwarding then relays to `bdarling87@gmail.com`.
+The signup form posts to `https://api.web3forms.com/submit` with the hidden `access_key` identifying our form. Web3Forms forwards the submission as an email to the account it's tied to (Brett's Gmail, linked via Google OAuth on signup).
 
-No account at Formsubmit required. **First-time activation:** the very first submission triggers a verification email from Formsubmit asking to confirm `info@cynthiongame.com` is yours. Click the link in that email once, and from then on real signups land in your Gmail.
-
-Email subject is `New Cynthion signup`. CAPTCHA disabled by default. If spam becomes a problem, set `_captcha` to `true` in the hidden input (in `index.html`).
+Manage forms / view access keys at <https://app.web3forms.com>. Email subject is `New Cynthion signup`. Free tier: 250 submissions/month — plenty for indie pre-launch.
 
 **Migrating off:** if you outgrow form-to-email (you want broadcasts, segmentation, double opt-in, etc.), swap the form action back to a list service (Mailchimp / MailerLite / Buttondown). The rest of the page is independent.
+
+**Why not Formsubmit:** their backend was down (HTTP 522 / Cloudflare origin timeout) during setup, so we pivoted to Web3Forms which proved more reliable.
 
 ### 2. (Optional) Custom domain
 
