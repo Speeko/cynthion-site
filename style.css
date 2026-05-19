@@ -1,3 +1,33 @@
+/* Self-hosted fonts — no third-party requests on page load. */
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("fonts/space-grotesk-600.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("fonts/space-grotesk-700.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("fonts/jetbrains-mono-400.woff2") format("woff2");
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("fonts/jetbrains-mono-500.woff2") format("woff2");
+}
+
 :root {
   --vacuum:      #0A0B0F;
   --regolith:    #5A5C60;
@@ -179,6 +209,21 @@ footer a:hover {
 @keyframes lightbox-fade {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+/* Accessibility: honour OS-level reduced-motion preference.
+   Disables backdrop fade, hover-scale transitions on gallery images, and
+   any other movement. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .lightbox::backdrop { animation: none; }
 }
 
 @media (max-width: 560px) {

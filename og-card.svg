@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0A0B0F"/>
+
+  <!-- Subtle off-center crescent — visual punctuation, doesn't compete with type -->
+  <g opacity="0.18">
+    <circle cx="950" cy="315" r="220" fill="#5A5C60"/>
+    <circle cx="1010" cy="315" r="200" fill="#0A0B0F"/>
+  </g>
+
+  <!-- Wordmark -->
+  <text x="600" y="280"
+        text-anchor="middle"
+        font-family="'Space Grotesk', 'Helvetica Neue', Arial, sans-serif"
+        font-weight="700"
+        font-size="148"
+        letter-spacing="22"
+        fill="#C8D6E3">CYNTHION</text>
+
+  <!-- Hairline rule -->
+  <line x1="540" y1="330" x2="660" y2="330" stroke="#7A4A2C" stroke-width="2"/>
+
+  <!-- Tagline-ish description -->
+  <text x="600" y="410"
+        text-anchor="middle"
+        font-family="'JetBrains Mono', 'Courier New', monospace"
+        font-weight="400"
+        font-size="28"
+        fill="#C8D6E3">An isometric party-based CRPG</text>
+  <text x="600" y="450"
+        text-anchor="middle"
+        font-family="'JetBrains Mono', 'Courier New', monospace"
+        font-weight="400"
+        font-size="28"
+        fill="#C8D6E3">set on Earth's Moon.</text>
+
+  <!-- Domain stamp, bottom-right corner -->
+  <text x="1140" y="590"
+        text-anchor="end"
+        font-family="'JetBrains Mono', 'Courier New', monospace"
+        font-weight="500"
+        font-size="20"
+        letter-spacing="2"
+        fill="#5A5C60">cynthiongame.com</text>
+</svg>
