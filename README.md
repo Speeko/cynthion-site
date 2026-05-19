@@ -12,22 +12,17 @@ Lives at: `https://speeko.github.io/cynthion-site/` (or custom domain once confi
 
 Two things need to happen before this page actually collects emails.
 
-### 1. MailerLite signup
+### 1. MailerLite (wired up)
 
-The form posts to `{{MAILERLITE_FORM_ACTION}}` — that placeholder needs to be replaced with a real MailerLite form action URL.
+The form posts to MailerLite — account `2360035`, form `187859158354102019` (the "Cynthion Landing Page" embedded form). Subscribers are added to the **Cynthion Subscribers** group.
 
-1. Go to https://mailerlite.com and sign up. Free tier covers 1,000 subscribers + 12,000 emails/month.
-2. Create a new **Embedded form**. Pick any style — we don't use their CSS, only the action URL.
-3. After creating the form, click "Embed". MailerLite gives you HTML — find the `<form action="...">` URL inside it. It will look like one of:
-   - `https://app.mailerlite.com/webforms/submit/abcd1234`
-   - `https://assets.mailerlite.com/jsonp/{ACCOUNT_ID}/forms/{FORM_ID}/subscribe`
-   - Or similar
-4. In `index.html`, search for `{{MAILERLITE_FORM_ACTION}}` and replace with that URL (the value of `action="..."`).
-5. Commit + push.
+To manage the list, send broadcasts, or change the form name:
+- Log in at https://dashboard.mailerlite.com
+- Forms → Embedded forms → Cynthion Landing Page
 
-**Field names already match MailerLite's expectations** (`fields[email]` + `ml-submit=1`), so the form will POST correctly as soon as the action URL is filled in.
+**Trial vs free tier:** the account was auto-enrolled in a 14-day trial (advanced features unlocked). When the trial expires it reverts to MailerLite's forever-free plan (1,000 subscribers + 12,000 emails/month). The embed form keeps working through the transition — only the dashboard features change.
 
-**Note:** Buttondown was the original plan but they rejected the account during manual review. Kit was considered next, but their free tier is buried behind a 14-day trial flow. MailerLite has the most generous indie-friendly free tier (1k subs vs Mailchimp's 500) and the same one-form-POST pattern, no JS required.
+**Double opt-in is on by default.** New subscribers get a confirmation email; they're not added to the group until they click confirm. Toggle off in the form's overview page if you want single opt-in.
 
 ### 2. (Optional) Custom domain
 

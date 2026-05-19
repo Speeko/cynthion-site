@@ -47,7 +47,7 @@
     <section class="signup">
       <p class="cta-line">Join the mailing list for updates.</p>
       <form
-        action="{{MAILERLITE_FORM_ACTION}}"
+        action="https://assets.mailerlite.com/jsonp/2360035/forms/187859158354102019/subscribe"
         method="post"
         target="_blank"
         novalidate
@@ -62,6 +62,7 @@
           required
         >
         <input type="hidden" name="ml-submit" value="1">
+        <input type="hidden" name="anticsrf" value="true">
         <button type="submit">Subscribe</button>
       </form>
     </section>
