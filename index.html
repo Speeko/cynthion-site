@@ -85,6 +85,10 @@
       if (!form || !success) return;
       form.addEventListener('submit', function (e) {
         e.preventDefault();
+        var btn = form.querySelector('button[type="submit"]');
+        var input = form.querySelector('input[type="email"]');
+        if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+        if (input) input.disabled = true;
         var fd = new FormData(form);
         fetch(form.action, { method: 'POST', body: fd, mode: 'no-cors' })
           .catch(function () { /* fire-and-forget */ });

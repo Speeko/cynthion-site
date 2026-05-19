@@ -222,6 +222,21 @@ button[type="submit"]:focus {
   outline: none;
 }
 
+button[type="submit"]:disabled,
+button[type="submit"][disabled] {
+  background: transparent;
+  border-color: var(--regolith);
+  color: var(--regolith);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+input[type="email"]:disabled {
+  color: var(--regolith);
+  border-color: color-mix(in srgb, var(--regolith) 60%, transparent);
+  cursor: not-allowed;
+}
+
 .signup-success {
   font-size: 0.9375rem;
   color: var(--cloud);
