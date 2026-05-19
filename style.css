@@ -83,6 +83,55 @@ main {
   color: var(--cloud);
 }
 
+/* Gallery
+   -------------------------------------------------------------- */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin: 0 0 3rem;
+}
+
+.gallery figure {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.gallery img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border: 1px solid color-mix(in srgb, var(--regolith) 50%, transparent);
+  filter: brightness(0.92) saturate(0.95);
+  transition: filter 200ms ease, border-color 200ms ease;
+}
+
+.gallery figure:hover img {
+  filter: brightness(1.05) saturate(1.0);
+  border-color: var(--earth-blue);
+}
+
+.gallery figcaption {
+  font-size: 0.75rem;
+  color: var(--regolith);
+  margin-top: 0.5rem;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+}
+
+@media (max-width: 560px) {
+  .gallery {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .gallery img {
+    aspect-ratio: 16 / 9;
+  }
+}
+
 /* Signup
    -------------------------------------------------------------- */
 .signup {
