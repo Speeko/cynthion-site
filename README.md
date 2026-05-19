@@ -66,6 +66,7 @@ Until a domain is bought, the site lives at `speeko.github.io/cynthion-site`. Wh
 | `sitemap.xml` | Single-page sitemap. |
 | `CNAME` | Custom domain pointer (`cynthiongame.com`). |
 | `scripts/sync-signups.sh` | Sync labelled Gmail signup emails into the Google Sheet. Run on demand or via cron. |
+| `scripts/capture-hero.js` | Render a high-resolution "title-through-timeline" snapshot (PNG @ 3x DPI) to `~/Desktop/cynthion-hero.png`. Use for press kits, Discord shares, social media. Requires `npm install --save-dev playwright` once. Run: `node scripts/capture-hero.js`. |
 | `images/` | Gallery WebPs. |
 | `README.md` | This file. |
 
