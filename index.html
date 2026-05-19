@@ -32,6 +32,10 @@
       <img src="images/03-concept-corridor.webp" alt="" loading="lazy">
     </section>
 
+    <dialog id="lightbox" class="lightbox" aria-label="Image viewer">
+      <img id="lightbox-img" alt="">
+    </dialog>
+
     <section class="timeline" aria-label="Timeline">
       <dl>
         <dt>~1990s</dt> <dd>Earth's powers unite behind a lunar program.</dd>
@@ -82,19 +86,35 @@
     (function () {
       var form = document.getElementById('signup-form');
       var success = document.getElementById('signup-success');
-      if (!form || !success) return;
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        var btn = form.querySelector('button[type="submit"]');
-        var input = form.querySelector('input[type="email"]');
-        if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
-        if (input) input.disabled = true;
-        var fd = new FormData(form);
-        fetch(form.action, { method: 'POST', body: fd, mode: 'no-cors' })
-          .catch(function () { /* fire-and-forget */ });
-        form.hidden = true;
-        success.hidden = false;
-      });
+      if (form && success) {
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          var btn = form.querySelector('button[type="submit"]');
+          var input = form.querySelector('input[type="email"]');
+          if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+          if (input) input.disabled = true;
+          var fd = new FormData(form);
+          fetch(form.action, { method: 'POST', body: fd, mode: 'no-cors' })
+            .catch(function () { /* fire-and-forget */ });
+          form.hidden = true;
+          success.hidden = false;
+        });
+      }
+
+      // Lightbox: click any gallery image, see it big on a dark backdrop.
+      var lightbox = document.getElementById('lightbox');
+      var lightboxImg = document.getElementById('lightbox-img');
+      if (lightbox && lightboxImg) {
+        document.querySelectorAll('.gallery img').forEach(function (img) {
+          img.addEventListener('click', function () {
+            lightboxImg.src = img.src;
+            if (typeof lightbox.showModal === 'function') lightbox.showModal();
+            else lightbox.setAttribute('open', '');
+          });
+        });
+        // Click backdrop or image closes it.
+        lightbox.addEventListener('click', function () { lightbox.close(); });
+      }
     })();
   </script>
 </body>
