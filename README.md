@@ -22,6 +22,24 @@ Manage forms / view access keys at <https://app.web3forms.com>. Email subject is
 
 **Why not Formsubmit:** their backend was down (HTTP 522 / Cloudflare origin timeout) during setup, so we pivoted to Web3Forms which proved more reliable.
 
+### 2. Mailing list auto-capture
+
+Each Web3Forms signup notification emails into `bdarling87@gmail.com`. A Gmail filter automatically applies the **`Cynthion Subscribers`** label to those notifications. On demand, run:
+
+```bash
+./scripts/sync-signups.sh
+```
+
+The script reads any unsynced labelled emails, parses out the subscriber address, appends a row to the **Cynthion Subscribers** Google Sheet (`Timestamp | Email | Source`), then applies a `Cynthion Subscribers/Synced` sub-label so the same email isn't processed twice.
+
+Sheet: <https://docs.google.com/spreadsheets/d/13DVCThkLC1rrPW2K0Z3-uvzPZhQ0PUdiwipsigDHGaI/edit>
+
+To run automatically every 15 minutes:
+
+```cron
+*/15 * * * *  cd /home/brett/Documents/GitHub/cynthion-site && ./scripts/sync-signups.sh >> /tmp/cynthion-sync.log 2>&1
+```
+
 ### 2. (Optional) Custom domain
 
 Until a domain is bought, the site lives at `speeko.github.io/cynthion-site`. When a domain is ready:
@@ -39,9 +57,16 @@ Until a domain is bought, the site lives at `speeko.github.io/cynthion-site`. Wh
 
 | File | Job |
 |---|---|
-| `index.html` | Markup. Wordmark, short description, email form, footer. |
+| `index.html` | Markup. Wordmark, copy, image gallery, timeline, signup form, footer. |
 | `style.css` | Brand palette tokens + layout. |
-| `CNAME` | Custom domain pointer. Added in step 2 above. |
+| `404.html` | Brand-matching 404 page. |
+| `privacy.html` | Mailing-list privacy notice. Linked from footer. |
+| `favicon.svg` | Crescent moon glyph on vacuum-black. |
+| `robots.txt` | Allow-all + sitemap pointer. |
+| `sitemap.xml` | Single-page sitemap. |
+| `CNAME` | Custom domain pointer (`cynthiongame.com`). |
+| `scripts/sync-signups.sh` | Sync labelled Gmail signup emails into the Google Sheet. Run on demand or via cron. |
+| `images/` | Gallery WebPs. |
 | `README.md` | This file. |
 
 No build step. No JS framework. Edits are instant — push to `main`, Pages redeploys.

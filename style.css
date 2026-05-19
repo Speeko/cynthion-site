@@ -83,6 +83,32 @@ main {
   color: var(--cloud);
 }
 
+.copy a,
+footer a {
+  color: var(--cloud);
+  text-decoration: none;
+  border-bottom: 1px solid var(--copper);
+  transition: color 120ms ease, border-color 120ms ease;
+}
+
+.copy a:hover,
+footer a:hover {
+  color: var(--earth-blue);
+  border-color: var(--earth-blue);
+}
+
+.copy strong {
+  color: var(--cloud);
+  font-weight: 500;
+}
+
+/* Wordmark on prose pages (privacy, 404): link to home */
+.wordmark h1 a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: none;
+}
+
 /* Gallery
    -------------------------------------------------------------- */
 .gallery {
