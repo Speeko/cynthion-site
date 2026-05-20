@@ -454,8 +454,14 @@ footer .socials svg {
 }
 
 .contact-meta .contact-support {
-  margin-top: 0.125rem;
-  font-size: 0.875rem;
+  margin-top: 1rem;
+  font-size: 0.75rem;
+  color: var(--regolith);
+}
+
+.contact-meta .contact-support a {
+  color: var(--regolith);
+  border-bottom-color: color-mix(in srgb, var(--copper) 40%, transparent);
 }
 
 /* Mobile
