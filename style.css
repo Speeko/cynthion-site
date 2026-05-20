@@ -419,6 +419,10 @@ footer .socials svg {
   margin: 0 0 2rem;
 }
 
+.contact-card + .contact-card {
+  margin-top: -0.5rem;
+}
+
 .contact-photo {
   display: block;
   width: 120px;
@@ -428,6 +432,19 @@ footer .socials svg {
   border: 1px solid color-mix(in srgb, var(--regolith) 50%, transparent);
   filter: brightness(0.95) saturate(0.95);
   flex-shrink: 0;
+}
+
+.contact-photo--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: color-mix(in srgb, var(--regolith) 18%, var(--vacuum));
+  color: var(--regolith);
+  font-family: var(--type-display);
+  font-size: 2.75rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  filter: none;
 }
 
 .contact-meta p {
