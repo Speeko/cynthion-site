@@ -485,4 +485,7 @@ footer .socials svg {
   footer { margin-top: 3rem; }
   .contact-card { gap: 1.25rem; }
   .contact-photo { width: 96px; height: 96px; }
+  .contact-meta p { margin: 0; }
+  .contact-meta .contact-email { margin-top: 0.5rem; }
+  .contact-meta .contact-support { margin-top: 1rem; }
 }
