@@ -410,6 +410,49 @@ footer .socials svg {
   border: 0;
 }
 
+/* Contact card
+   -------------------------------------------------------------- */
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 0 0 2rem;
+}
+
+.contact-photo {
+  display: block;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid color-mix(in srgb, var(--regolith) 50%, transparent);
+  filter: brightness(0.95) saturate(0.95);
+  flex-shrink: 0;
+}
+
+.contact-meta p {
+  margin: 0;
+  line-height: 1.5;
+  font-size: 0.9375rem;
+}
+
+.contact-meta .contact-name {
+  font-family: var(--type-display);
+  font-weight: 600;
+  font-size: 1.125rem;
+  color: var(--cloud);
+  letter-spacing: 0.02em;
+}
+
+.contact-meta .contact-role,
+.contact-meta .contact-location {
+  color: var(--regolith);
+}
+
+.contact-meta .contact-email {
+  margin-top: 0.5rem;
+}
+
 /* Mobile
    -------------------------------------------------------------- */
 @media (max-width: 480px) {
@@ -418,4 +461,6 @@ footer .socials svg {
   .copy p { margin-bottom: 2rem; }
   .signup { margin-bottom: 2.5rem; }
   footer { margin-top: 3rem; }
+  .contact-card { gap: 1.25rem; }
+  .contact-photo { width: 96px; height: 96px; }
 }
