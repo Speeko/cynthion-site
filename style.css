@@ -453,6 +453,11 @@ footer .socials svg {
   margin-top: 0.5rem;
 }
 
+.contact-meta .contact-support {
+  margin-top: 0.125rem;
+  font-size: 0.875rem;
+}
+
 /* Mobile
    -------------------------------------------------------------- */
 @media (max-width: 480px) {
