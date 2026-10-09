@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ManRocket — Leaderboards · Cynthion</title>
+  <meta name="description" content="ManRocket speedrun leaderboards. Two thrusters. One body. Bad ideas.">
+  <meta property="og:title" content="ManRocket Leaderboards">
+  <meta property="og:description" content="Full-run and per-level times for ManRocket.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://cynthiongame.com/manrocket.html">
+  <meta property="og:site_name" content="Cynthion">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    main.manrocket { max-width: 720px; }
+    .mr-nav { margin-bottom: 2rem; font-size: 0.85rem; }
+    .mr-nav a { color: var(--earth-blue); text-decoration: none; }
+    .mr-nav a:hover { text-decoration: underline; }
+    .mr-controls {
+      display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center;
+      margin: 1.5rem 0 1rem;
+    }
+    .mr-controls label { font-size: 0.85rem; color: var(--regolith); }
+    .mr-controls select, .mr-controls input {
+      background: #12141a; color: var(--cloud); border: 1px solid var(--regolith-deep);
+      padding: 0.4rem 0.6rem; font-family: var(--type-body); border-radius: 4px;
+    }
+    .mr-table {
+      width: 100%; border-collapse: collapse; font-size: 0.9rem;
+      margin-top: 0.5rem;
+    }
+    .mr-table th, .mr-table td {
+      text-align: left; padding: 0.55rem 0.4rem;
+      border-bottom: 1px solid rgba(90, 92, 96, 0.45);
+    }
+    .mr-table th { color: var(--regolith); font-weight: 500; font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; }
+    .mr-table td.rank { width: 3rem; color: var(--copper); }
+    .mr-table td.time { font-variant-numeric: tabular-nums; color: #e8c86a; }
+    .mr-status { min-height: 1.5rem; color: var(--regolith); font-size: 0.85rem; }
+    .mr-tag { color: var(--regolith); font-size: 0.95rem; margin-top: 0.35rem; }
+  </style>
+</head>
+<body>
+  <main class="manrocket">
+    <p class="mr-nav"><a href="/">← Cynthion</a></p>
+    <header class="wordmark">
+      <h1>MANROCKET</h1>
+      <hr aria-hidden="true">
+      <p class="mr-tag">two thrusters. one body. bad ideas.</p>
+    </header>
+
+    <section class="copy">
+      <p class="lead">Speedrun boards for the Speeko / Spekks thruster gauntlet. Times come from the desktop build when it can reach the API.</p>
+    </section>
+
+    <div class="mr-controls">
+      <label for="mode">Mode</label>
+      <select id="mode">
+        <option value="full_run">Full run (21 levels)</option>
+        <option value="level">Single level</option>
+      </select>
+      <label for="level" id="level-label" hidden>Level</label>
+      <input id="level" type="number" min="1" max="21" value="1" hidden>
+      <button type="button" id="refresh" class="cta" style="padding:0.4rem 0.9rem;font-size:0.85rem;">Refresh</button>
+    </div>
+    <p class="mr-status" id="status">Loading…</p>
+    <table class="mr-table" id="board" hidden>
+      <thead>
+        <tr><th>#</th><th>Pilot</th><th>Time</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </main>
+  <script>
+    const API = "https://api.cynthiongame.com/v1/leaderboard/manrocket";
+    const modeEl = document.getElementById("mode");
+    const levelEl = document.getElementById("level");
+    const levelLabel = document.getElementById("level-label");
+    const statusEl = document.getElementById("status");
+    const table = document.getElementById("board");
+    const tbody = table.querySelector("tbody");
+
+    function formatTime(ms) {
+      if (!ms || ms <= 0) return "—";
+      const total = ms / 1000;
+      const mins = Math.floor(total / 60);
+      const secs = total % 60;
+      if (mins > 0) return mins + ":" + secs.toFixed(2).padStart(5, "0");
+      return secs.toFixed(2);
+    }
+
+    function syncLevelVisibility() {
+      const show = modeEl.value === "level";
+      levelEl.hidden = !show;
+      levelLabel.hidden = !show;
+    }
+
+    async function loadBoard() {
+      syncLevelVisibility();
+      statusEl.textContent = "Loading…";
+      table.hidden = true;
+      tbody.innerHTML = "";
+      let url = API + "?mode=" + encodeURIComponent(modeEl.value) + "&limit=50";
+      if (modeEl.value === "level") url += "&level=" + encodeURIComponent(levelEl.value || "1");
+      try {
+        const res = await fetch(url, { headers: { Accept: "application/json" } });
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        const data = await res.json();
+        const entries = data.entries || [];
+        if (!entries.length) {
+          statusEl.textContent = "No times yet. Be first from the ManRocket build.";
+          return;
+        }
+        statusEl.textContent = entries.length + " time" + (entries.length === 1 ? "" : "s");
+        for (const e of entries) {
+          const tr = document.createElement("tr");
+          tr.innerHTML =
+            '<td class="rank">' + (e.rank ?? "") + "</td>" +
+            "<td>" + escapeHtml(e.name || "anon") + "</td>" +
+            '<td class="time">' + formatTime(e.time_ms) + "</td>";
+          tbody.appendChild(tr);
+        }
+        table.hidden = false;
+      } catch (err) {
+        statusEl.textContent = "Could not reach the leaderboard API yet. Deploy telemetry, then refresh.";
+      }
+    }
+
+    function escapeHtml(s) {
+      return String(s).replace(/[&<>"']/g, (c) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      })[c]);
+    }
+
+    modeEl.addEventListener("change", loadBoard);
+    levelEl.addEventListener("change", loadBoard);
+    document.getElementById("refresh").addEventListener("click", loadBoard);
+    loadBoard();
+  </script>
+</body>
+</html>
